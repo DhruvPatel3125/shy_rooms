@@ -1,0 +1,143 @@
+[
+    {
+      "name": "Deluxe Ocean View",
+      "maxcount": 2,
+      "phonenumber": 9876543210,
+      "rentperday": 3500,
+      "imageurls": [
+        "https://media.istockphoto.com/id/627892060/photo/hotel-room-suite-with-view.jpg?s=612x612&w=0&k=20&c=YBwxnGH3MkOLLpBKCvWAD8F__T-ypznRUJ_N13Zb1cU=",
+        "https://i.pinimg.com/736x/6f/72/35/6f7235447ca2c37edf7df110269d363b.jpg",
+        "https://www.hoteldekho.com/storage/img/hotels/1641299210IMG5.jpg"
+      ],
+      "currentbookings": [],
+      "type": "Deluxe",
+      "description": "A luxurious room with a stunning ocean view and king-sized bed."
+    },
+    {
+      "name": "Standard Single Room",
+      "maxcount": 1,
+      "phonenumber": 9123456780,
+      "rentperday": 1500,
+      "imageurls": [
+        "https://media.istockphoto.com/id/1447180306/photo/woman-enjoys-magnificent-view-from-hotel-window.jpg?s=612x612&w=0&k=20&c=tYi7l7OmNUrceo6neAHBpqrk9uVO4UTRjodqpOHeIyA=",
+        "https://media.istockphoto.com/id/1816955189/photo/couple-contemplating-an-hotel-room-as-they-arrived.jpg?s=612x612&w=0&k=20&c=GNcncaqglDtM_jq8GC3qT5zTXASKh7butzoOP1dU3UM=",
+        "https://media.istockphoto.com/id/1427259361/photo/breakfast-in-the-room.jpg?s=612x612&w=0&k=20&c=uAU1S_zjxss75vr4tzAXYmu2JoyIIZAw1WSDTcHsKz0="
+      ],
+      "currentbookings": [],
+      "type": "Standard",
+      "description": "Comfortable single bed room with all basic amenities."
+    },
+    {
+      "name": "Family Suite",
+      "maxcount": 5,
+      "phonenumber": 9988776655,
+      "rentperday": 6000,
+      "imageurls": [
+        "https://media.istockphoto.com/id/1815808691/photo/luxury-bedroom-suite-in-resort-high-rise-hotel-with-cushion.jpg?s=612x612&w=0&k=20&c=wmYZMUx0cvzGCDg9Di3HT-6NMDvPVhycuAxrQzFfKiM=",
+        "https://media.istockphoto.com/id/2021707621/photo/night-scene-modern-style-luxury-black-master-bedroom-with-city-view-3d-render.jpg?s=612x612&w=0&k=20&c=D4_n5-lvzP9HiC-MXI8f5qYM9R7CH6EbF2Xyq9V8b_o=",
+        "https://media.istockphoto.com/id/1780197519/photo/man-paying-something-with-a-credit-card-at-the-hotel-reception.jpg?s=612x612&w=0&k=20&c=oV2x5sZfwAu2rr8nFecCoD45nm8WrMn5-2Mur9h1qHI="
+      ],
+      "currentbookings": [],
+      "type": "Suite",
+      "description": "Spacious suite perfect for families, includes two bedrooms and a living area."
+    },
+    {
+      "name": "Budget Twin Room",
+      "maxcount": 2,
+      "phonenumber": 9011223344,
+      "rentperday": 1800,
+      "imageurls": [
+        "https://example.com/images/twin1.jpg",
+        "https://example.com/images/twin2.jpg",
+        "https://example.com/images/twin3.jpg"
+      ],
+      "currentbookings": [],
+      "type": "Budget",
+      "description": "Affordable room with twin beds, ideal for backpackers or friends."
+    },
+    {
+      "name": "Executive Suite",
+      "maxcount": 3,
+      "phonenumber": 9900112233,
+      "rentperday": 4500,
+      "imageurls": [
+        "https://example.com/images/executive1.jpg",
+        "https://example.com/images/executive2.jpg",
+        "https://example.com/images/executive3.jpg"
+      ],
+      "currentbookings": [],
+      "type": "Suite",
+      "description": "Premium executive suite with workspace and lounge area."
+    },
+    {
+      "name": "Presidential Suite",
+      "maxcount": 4,
+      "phonenumber": 9887766554,
+      "rentperday": 10000,
+      "imageurls": [
+        "https://example.com/images/presidential1.jpg",
+        "https://example.com/images/presidential2.jpg",
+        "https://example.com/images/presidential3.jpg"
+      ],
+      "currentbookings": [],
+      "type": "Presidential",
+      "description": "The most luxurious suite with panoramic city views and top-tier amenities."
+    },
+    {
+      "name": "Studio Room",
+      "maxcount": 2,
+      "phonenumber": 9812345678,
+      "rentperday": 2200,
+      "imageurls": [
+        "https://example.com/images/studio1.jpg",
+        "https://example.com/images/studio2.jpg",
+        "https://example.com/images/studio3.jpg"
+      ],
+      "currentbookings": [],
+      "type": "Studio",
+      "description": "Modern studio-style room with kitchenette and queen-size bed."
+    },
+    {
+      "name": "Luxury King Room",
+      "maxcount": 2,
+      "phonenumber": 9765432109,
+      "rentperday": 3800,
+      "imageurls": [
+        "https://example.com/images/king1.jpg",
+        "https://example.com/images/king2.jpg",
+        "https://example.com/images/king3.jpg"
+      ],
+      "currentbookings": [],
+      "type": "Luxury",
+      "description": "Spacious room with a king-sized bed and deluxe furnishings."
+    },
+    {
+      "name": "Penthouse Suite",
+      "maxcount": 4,
+      "phonenumber": 9654321098,
+      "rentperday": 12000,
+      "imageurls": [
+        "https://example.com/images/penthouse1.jpg",
+        "https://example.com/images/penthouse2.jpg",
+        "https://example.com/images/penthouse3.jpg"
+      ],
+      "currentbookings": [],
+      "type": "Penthouse",
+      "description": "Exclusive penthouse with private terrace and luxury decor."
+    },
+    {
+      "name": "Heritage Room",
+      "maxcount": 2,
+      "phonenumber": 9543210987,
+      "rentperday": 3200,
+      "imageurls": [
+        "https://example.com/images/heritage1.jpg",
+        "https://example.com/images/heritage2.jpg",
+        "https://example.com/images/heritage3.jpg"
+      ],
+      "currentbookings": [],
+      "type": "Heritage",
+      "description": "A traditionally styled room with antique decor and modern comfort."
+    }
+  ]
+  
