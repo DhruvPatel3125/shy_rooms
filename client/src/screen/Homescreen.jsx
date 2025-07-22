@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const Homescreen = () => {
+  const [rooms, setRooms] = useState([]);
   useEffect(() => {
     const fetchRooms = async () => {
       try {
         const { data } = await axios.get('/api/rooms/getallrooms');
-        console.log(data);
+        setRooms(data.rooms); // <-- Fix here
       } catch (error) {
         console.log(error);
       }
@@ -16,7 +17,7 @@ const Homescreen = () => {
 
   return (
     <>
-      <h1>homme cappl</h1>
+      <h1>There are {rooms.length} rooms</h1>
     </>
   );
 };
