@@ -13,4 +13,16 @@ router.get("/getallrooms",async(req,res)=>{
    }
 })
 
+router.get("/getroombyid/:id", async (req, res) => {
+  try {
+    const room = await Room.findById(req.params.id);
+    if (!room) {
+      return res.status(404).json({ message: "Room not found" });
+    }
+    return res.json(room);
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+});
+
 module.exports = router;
