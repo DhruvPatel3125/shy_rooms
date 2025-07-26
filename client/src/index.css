@@ -42,3 +42,15 @@ h1 {
   object-fit: cover;     /* Ensures images are cropped to fit */
   border-radius: 5px !important;
 }
+
+input{
+  box-shadow: none !important;
+  margin-top: 10px;
+  border: 1px solid black !important;
+}
+h2{
+  font-size: 30px !important;
+  padding: 10px !important;
+  font-weight: bold;
+  text-align: center;
+}
