@@ -1,6 +1,8 @@
 import React from "react";
+import { ClockLoader } from "react-spinners";
 
 const Navbar = () => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
   return (
     <>
       <nav className="navbar navbar-expand-lg">
@@ -21,20 +23,32 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-              <li className="nav-item">
-                <a
-                  className="nav-link active"
-                  aria-current="page"
-                  href="/register"
-                >
-                  Register
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/login">
-                  Login
-                </a>
-              </li>
+              {user ? (
+                <>
+                    <li className="nav-item">
+                      <a className="nav-link" href="#">
+                        {user.name}
+                      </a>
+                    </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <a
+                      className="nav-link active"
+                      aria-current="page"
+                      href="/register"
+                    >
+                      Register
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/login">
+                      Login
+                    </a>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
