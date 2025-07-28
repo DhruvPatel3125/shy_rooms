@@ -11,8 +11,8 @@ function App() {
   return (
     <>
       <Navbar />
-      <Room/>
       <Routes>
+        <Route path="/" element={<Homescreen />} />
         <Route path="/home" element={<Homescreen />} />
         <Route path="/book/:roomid" element={<Bookingscreen/>}/>
         <Route path="/login" element={<LoginScreen/>}/>

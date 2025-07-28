@@ -30,6 +30,7 @@ function RegisterScreen() {
                 setEmail('')
                 setPassword('')
                 setConfirmPassword('')
+                window.location.href = '/login'
 
             } catch (error) {
                 console.log(error)

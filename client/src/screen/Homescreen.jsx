@@ -8,6 +8,10 @@ const Homescreen = () => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState();
   const [error, setError] = useState();
+
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  const isLoggedIn = !!user; // Check if user exists
+
   useEffect(() => {
     const fetchRooms = async () => {
       try {
@@ -32,8 +36,8 @@ const Homescreen = () => {
             <Loader/>
           ) : rooms.length>1 ? (
               rooms.map((room) => {
-                return <div className="col-md-9 mt-2">
-                  <Room room={room}/>
+                return <div className="col-md-9 mt-2" key={room._id}>
+                  <Room room={room} isLoggedIn={isLoggedIn}/>
                 </div>
               })
           ) : (
