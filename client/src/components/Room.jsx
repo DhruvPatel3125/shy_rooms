@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import Carousel from "react-bootstrap/Carousel";
 import { Link } from "react-router-dom";
 
-function Room({ room, isLoggedIn }) {
+function Room({ room, isLoggedIn, fromdate, todate   }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -27,7 +27,7 @@ function Room({ room, isLoggedIn }) {
         </b>
         <div style={{ float: "right" }}>
           {isLoggedIn ? (
-            <Link to={`/book/${room._id}`}>
+            <Link to={`/book/${room._id}/${fromdate}/${todate}`}> 
               <button className="btn btn-primary m-2">Book Now</button>
             </Link>
           ) : (

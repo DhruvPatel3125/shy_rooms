@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homescreen />} />
         <Route path="/home" element={<Homescreen />} />
-        <Route path="/book/:roomid" element={<Bookingscreen/>}/>
+        <Route path="/book/:roomid/:fromdate/:todate" element={<Bookingscreen/>}/>
         <Route path="/login" element={<LoginScreen/>}/>
         <Route path="/register" element={<RegisterScreen/>}/>
         

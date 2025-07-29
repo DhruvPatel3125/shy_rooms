@@ -3,13 +3,14 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import moment from "moment";
 //dewre
 const Bookingscreen = () => {
-  const { roomid } = useParams();
+  const { roomid, fromdate, todate } = useParams();
   const [room, setRoom] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
-
+    
   useEffect(() => {
     const fetchRoom = async () => {
       try {
@@ -48,8 +49,8 @@ const Bookingscreen = () => {
 
               <b>
                 <p>Name:</p>
-                <p>From Date:</p>
-                <p>To Date:</p>
+                <p>From Date:{moment(fromdate, "DD-MM-YYYY").format("DD-MM-YYYY")}</p>
+                <p>To Date:{moment(todate, "DD-MM-YYYY").format("DD-MM-YYYY")}</p>    
                 <p>Max Count:{room.maxcount}</p>
               </b>
 
