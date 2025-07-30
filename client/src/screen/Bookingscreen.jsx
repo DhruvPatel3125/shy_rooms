@@ -10,7 +10,7 @@ const Bookingscreen = () => {
   const [room, setRoom] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
-    
+  const totalDays = moment(todate, "DD-MM-YYYY").diff(moment(fromdate, "DD-MM-YYYY"), "days");
   useEffect(() => {
     const fetchRoom = async () => {
       try {
@@ -58,9 +58,9 @@ const Bookingscreen = () => {
                 <b>
                   <h1>Ammount</h1>
                   <hr />
-                  <p>Total days : </p>
+                  <p>Total days : {totalDays.toString() }</p> 
                   <p>Rent per days : {room.rentperday}</p>
-                  <p>Total Ammont</p>
+                  <p>Total Ammont : {totalDays * room.rentperday}</p>
                 </b>
               </div>
               <div style={{float:'right'}}>
