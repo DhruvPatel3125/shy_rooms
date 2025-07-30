@@ -14,7 +14,7 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
-            SHY ROOMS
+            SHY ROOMS 
           </a>
           <button
             className="navbar-toggler"
