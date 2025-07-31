@@ -11,6 +11,7 @@ const Bookingscreen = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const totalDays = moment(todate, "DD-MM-YYYY").diff(moment(fromdate, "DD-MM-YYYY"), "days");
+
   useEffect(() => {
     const fetchRoom = async () => {
       try {
@@ -26,6 +27,30 @@ const Bookingscreen = () => {
     };
     fetchRoom();
   }, [roomid]);
+
+ async function bookRoom(){
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const bookingDetails = {
+    roomname: room.name,
+    roomid: room._id,
+    userid: currentUser && currentUser._id,
+    fromdate,
+    todate,
+    totalammount: totalDays * room.rentperday,
+    totaldays: totalDays,
+  }
+  console.log('Booking details:', bookingDetails);
+  try {
+    const result = await axios.post('/api/bookings/bookroom', bookingDetails);
+    if(result.data.success){
+      alert('Room booked successfully');
+    }else{
+      alert('Something went wrong');
+    }
+  } catch (error) {
+    alert('Booking failed: ' + (error.response?.data?.message || error.message));
+  }
+}
 
   return (
     <div className="m-5">
@@ -48,10 +73,10 @@ const Bookingscreen = () => {
               <hr />
 
               <b>
-                <p>Name:</p>
-                <p>From Date:{moment(fromdate, "DD-MM-YYYY").format("DD-MM-YYYY")}</p>
-                <p>To Date:{moment(todate, "DD-MM-YYYY").format("DD-MM-YYYY")}</p>    
-                <p>Max Count:{room.maxcount}</p>
+                <p>Name : {room?.name}</p>
+                <p>From Date : {moment(fromdate, "DD-MM-YYYY").format("DD-MM-YYYY")}</p>
+                <p>To Date : {moment(todate, "DD-MM-YYYY").format("DD-MM-YYYY")}</p>    
+                <p>Max Count : {room.maxcount}</p>
               </b>
 
               <div>
@@ -64,7 +89,7 @@ const Bookingscreen = () => {
                 </b>
               </div>
               <div style={{float:'right'}}>
-                <button className="btn btn-primary">Pay now</button>
+                <button className="btn btn-primary"onClick={bookRoom}>Pay now</button>
               </div>
             </div>
           </div>
