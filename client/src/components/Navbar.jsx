@@ -2,7 +2,14 @@ import React from "react";
 import { ClockLoader } from "react-spinners";
 
 const Navbar = () => {
-    const users = JSON.parse(localStorage.getItem("currentUser"));
+    let users = null;
+    try {
+        const currentUser = localStorage.getItem("currentUser");
+        users = currentUser ? JSON.parse(currentUser) : null;
+    } catch (error) {
+        console.error("Error parsing currentUser from localStorage:", error);
+        localStorage.removeItem("currentUser"); // Clear corrupted data
+    }
 
     function logout(){
       localStorage.clear()
@@ -29,10 +36,10 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul className="navbar-nav">
-              {users ? (
+              {users && users.name ? (
                 <li className="nav-item dropdown">
                   <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i className="fa fa-user"></i> {users.data.name}
+                    <i className="fa fa-user"></i> {users.name}
                   </a>
                   <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a className="dropdown-item" href="/profile">Profile</a></li>

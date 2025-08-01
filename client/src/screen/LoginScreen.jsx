@@ -15,7 +15,7 @@ function LoginScreen() {
       setLoading(true)
         const result = await axios.post('/api/users/login',user)
       setLoading(false)
-      localStorage.setItem('currentUser',JSON.stringify(result))
+      localStorage.setItem('currentUser',JSON.stringify(result.data))
       window.location.href='/home'
     } catch (error) {
         console.log(error)

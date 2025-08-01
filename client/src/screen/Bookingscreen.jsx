@@ -30,24 +30,48 @@ const Bookingscreen = () => {
 
  async function bookRoom(){
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  
+  // Validate user is logged in
+  if (!currentUser || !currentUser._id) {
+    alert('Please login to book a room');
+    return;
+  }
+
+  // Validate room data is loaded
+  if (!room || !room._id || !room.name || !room.rentperday) {
+    alert('Room information is not loaded properly. Please refresh the page.');
+    return;
+  }
+
+  // Validate dates and total days
+  if (totalDays <= 0) {
+    alert('Invalid date selection. Please check your dates.');
+    return;
+  }
+
   const bookingDetails = {
     roomname: room.name,
     roomid: room._id,
-    userid: currentUser && currentUser._id,
+    userid: currentUser._id,
     fromdate,
     todate,
     totalammount: totalDays * room.rentperday,
     totaldays: totalDays,
   }
+  
   console.log('Booking details:', bookingDetails);
+  
   try {
     const result = await axios.post('/api/bookings/bookroom', bookingDetails);
     if(result.data.success){
-      alert('Room booked successfully');
-    }else{
-      alert('Something went wrong');
+      alert('Room booked successfully!');
+      // Optionally redirect to bookings page or home
+      // window.location.href = '/';
+    } else {
+      alert('Booking failed: ' + (result.data.message || 'Something went wrong'));
     }
   } catch (error) {
+    console.error('Booking error:', error);
     alert('Booking failed: ' + (error.response?.data?.message || error.message));
   }
 }
