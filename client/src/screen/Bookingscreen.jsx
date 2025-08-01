@@ -97,7 +97,7 @@ const Bookingscreen = () => {
               <hr />
 
               <b>
-                <p>Name : {room?.name}</p>
+                <p>Name : {JSON.parse(localStorage.getItem('currentUser')).name}</p>
                 <p>From Date : {moment(fromdate, "DD-MM-YYYY").format("DD-MM-YYYY")}</p>
                 <p>To Date : {moment(todate, "DD-MM-YYYY").format("DD-MM-YYYY")}</p>    
                 <p>Max Count : {room.maxcount}</p>
