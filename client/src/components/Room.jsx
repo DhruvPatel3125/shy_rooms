@@ -26,16 +26,21 @@ function Room({ room, isLoggedIn, fromdate, todate   }) {
           <p>Type: {room.type || "N/A"}</p>
         </b>
         <div style={{ float: "right" }}>
-          {isLoggedIn ? (
-            <Link to={`/book/${room._id}/${fromdate}/${todate}`}> 
-              <button className="btn btn-primary m-2">Book Now</button>
-            </Link>
+          {(fromdate && todate) ? (
+            isLoggedIn ? (
+              <Link to={`/book/${room._id}/${encodeURIComponent(fromdate)}/${encodeURIComponent(todate)}`}> 
+                <button className="btn btn-primary m-2">Book Now</button>
+              </Link>
+            ) : (
+              <button className="btn btn-primary m-2" onClick={handleShow}>
+                View Details
+              </button>
+            )
           ) : (
             <button className="btn btn-primary m-2" onClick={handleShow}>
               View Details
             </button>
           )}
-          
         </div>
       </div>
 

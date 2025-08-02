@@ -16,6 +16,8 @@ router.post("/bookroom", async (req, res) => {
   } = req.body;
 
   try {
+    console.log('Booking request received:', req.body);
+    
     // Validate required fields
     if (
       !roomname ||
@@ -26,32 +28,53 @@ router.post("/bookroom", async (req, res) => {
       !totalammount ||
       !totaldays
     ) {
+      console.log('Missing required fields:', { roomname, roomid, userid, fromdate, todate, totalammount, totaldays });
       return res.status(400).json({
         success: false,
         message: "All booking fields are required",
+        missing: {
+          roomname: !roomname,
+          roomid: !roomid,
+          userid: !userid,
+          fromdate: !fromdate,
+          todate: !todate,
+          totalammount: !totalammount,
+          totaldays: !totaldays
+        }
       });
     }
 
     // Validate and parse dates
+    console.log('Parsing dates:', { fromdate, todate });
     const fromDateObj = moment(fromdate, "DD-MM-YYYY", true);
     const toDateObj = moment(todate, "DD-MM-YYYY", true);
+    
+    console.log('Date validation:', { 
+      fromDateValid: fromDateObj.isValid(), 
+      toDateValid: toDateObj.isValid(),
+      fromDateParsed: fromDateObj.format('DD-MM-YYYY'),
+      toDateParsed: toDateObj.format('DD-MM-YYYY')
+    });
 
     if (!fromDateObj.isValid()) {
+      console.log('Invalid from date:', fromdate);
       return res.status(400).json({
         success: false,
-        message: "Invalid from date format. Please use DD-MM-YYYY format.",
+        message: `Invalid from date format: "${fromdate}". Please use DD-MM-YYYY format.`,
       });
     }
 
     if (!toDateObj.isValid()) {
+      console.log('Invalid to date:', todate);
       return res.status(400).json({
         success: false,
-        message: "Invalid to date format. Please use DD-MM-YYYY format.",
+        message: `Invalid to date format: "${todate}". Please use DD-MM-YYYY format.`,
       });
     }
 
     // Check if from date is before to date
     if (fromDateObj.isSameOrAfter(toDateObj)) {
+      console.log('Date order issue:', { fromDateObj: fromDateObj.format('DD-MM-YYYY'), toDateObj: toDateObj.format('DD-MM-YYYY') });
       return res.status(400).json({
         success: false,
         message: "Check-in date must be before check-out date.",
@@ -59,7 +82,15 @@ router.post("/bookroom", async (req, res) => {
     }
 
     // Check if from date is not in the past
-    if (fromDateObj.isBefore(moment(), "day")) {
+    const today = moment().startOf('day');
+    console.log('Date comparison:', { 
+      fromDate: fromDateObj.format('DD-MM-YYYY'), 
+      today: today.format('DD-MM-YYYY'),
+      isInPast: fromDateObj.isBefore(today)
+    });
+    
+    if (fromDateObj.isBefore(today)) {
+      console.log('Past date detected:', fromDateObj.format('DD-MM-YYYY'));
       return res.status(400).json({
         success: false,
         message: "Check-in date cannot be in the past.",
@@ -93,7 +124,16 @@ router.post("/bookroom", async (req, res) => {
 
     // Validate calculated total days
     const calculatedDays = toDateObj.diff(fromDateObj, "days");
+    console.log('Days calculation:', { 
+      calculatedDays, 
+      receivedTotalDays: totaldays, 
+      match: calculatedDays === totaldays,
+      fromDate: fromDateObj.format('DD-MM-YYYY'),
+      toDate: toDateObj.format('DD-MM-YYYY')
+    });
+    
     if (calculatedDays !== totaldays) {
+      console.log('Days mismatch:', { calculatedDays, totaldays });
       return res.status(400).json({
         success: false,
         message: `Total days mismatch. Expected ${calculatedDays} days but received ${totaldays} days.`,

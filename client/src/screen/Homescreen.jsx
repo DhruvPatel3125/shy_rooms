@@ -53,16 +53,20 @@ const Homescreen = () => {
       setTodate(null);
       return;
     }
+
+    // Set the selected dates
     setFromdate(dates[0].format("DD-MM-YYYY"));
     setTodate(dates[1].format("DD-MM-YYYY"));
-    const fetchRoomsByDate = async () => {
+    
+    // Fetch only available rooms for the selected dates from server
+    const fetchAvailableRooms = async () => {
       try {
         setLoading(true);
         const { data } = await axios.post("/api/rooms/getallrooms", {
           fromdate: dates[0].format("DD-MM-YYYY"),
           todate: dates[1].format("DD-MM-YYYY"),
         });
-        setRooms(data.rooms);
+        setRooms(data.rooms); // Server returns only available rooms
         setLoading(false);
       } catch (error) {
         setError(true);
@@ -70,7 +74,7 @@ const Homescreen = () => {
         setLoading(false);
       }
     };
-    fetchRoomsByDate();
+    fetchAvailableRooms();
   }
 
   return (
@@ -85,7 +89,7 @@ const Homescreen = () => {
         <div className="row justify-content-center mt-5">
           {loading ? (
             <Loader />
-          ) : rooms.length > 1 ? (
+          ) : rooms.length > 0 ? (
             rooms.map((room) => {
               return (
                 <div className="col-md-9 mt-2" key={room._id}>
@@ -94,7 +98,10 @@ const Homescreen = () => {
               );
             })
           ) : (
-            <Error />
+            <div className="col-md-12 text-center">
+              <h3>No rooms available for the selected dates</h3>
+              <p>Please try different dates or check back later.</p>
+            </div>
           )}
         </div>
       </div>

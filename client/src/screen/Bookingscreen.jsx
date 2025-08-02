@@ -10,7 +10,18 @@ const Bookingscreen = () => {
   const [room, setRoom] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
-  const totalDays = moment(todate, "DD-MM-YYYY").diff(moment(fromdate, "DD-MM-YYYY"), "days");
+  
+  // Decode URL parameters and validate dates
+  const decodedFromDate = decodeURIComponent(fromdate);
+  const decodedToDate = decodeURIComponent(todate);
+  
+  // Validate dates before calculating total days
+  const fromDateMoment = moment(decodedFromDate, "DD-MM-YYYY", true);
+  const toDateMoment = moment(decodedToDate, "DD-MM-YYYY", true);
+  
+  const totalDays = fromDateMoment.isValid() && toDateMoment.isValid() 
+    ? toDateMoment.diff(fromDateMoment, "days") 
+    : 0;
 
   useEffect(() => {
     const fetchRoom = async () => {
@@ -43,9 +54,26 @@ const Bookingscreen = () => {
     return;
   }
 
+  // Validate dates
+  if (!fromDateMoment.isValid()) {
+    alert('Invalid from date format. Please select dates again.');
+    return;
+  }
+  
+  if (!toDateMoment.isValid()) {
+    alert('Invalid to date format. Please select dates again.');
+    return;
+  }
+
   // Validate dates and total days
   if (totalDays <= 0) {
-    alert('Invalid date selection. Please check your dates.');
+    alert('Invalid date selection. Check-out date must be after check-in date.');
+    return;
+  }
+
+  // Check if from date is not in the past
+  if (fromDateMoment.isBefore(moment(), "day")) {
+    alert('Check-in date cannot be in the past. Please select a future date.');
     return;
   }
 
@@ -53,8 +81,8 @@ const Bookingscreen = () => {
     roomname: room.name,
     roomid: room._id,
     userid: currentUser._id,
-    fromdate,
-    todate,
+    fromdate: decodedFromDate,
+    todate: decodedToDate,
     totalammount: totalDays * room.rentperday,
     totaldays: totalDays,
   }
@@ -98,8 +126,8 @@ const Bookingscreen = () => {
 
               <b>
                 <p>Name : {JSON.parse(localStorage.getItem('currentUser')).name}</p>
-                <p>From Date : {moment(fromdate, "DD-MM-YYYY").format("DD-MM-YYYY")}</p>
-                <p>To Date : {moment(todate, "DD-MM-YYYY").format("DD-MM-YYYY")}</p>    
+                <p>From Date : {fromDateMoment.isValid() ? fromDateMoment.format("DD-MM-YYYY") : decodedFromDate}</p>
+                <p>To Date : {toDateMoment.isValid() ? toDateMoment.format("DD-MM-YYYY") : decodedToDate}</p>    
                 <p>Max Count : {room.maxcount}</p>
               </b>
 
