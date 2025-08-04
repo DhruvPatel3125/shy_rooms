@@ -17,3 +17,4 @@ app.use('/api/bookings',bookingRoute)
 app.listen(PORT, () => {
     console.log(`Server is running on: http://localhost:${PORT}`);
 });
+// npm run dev
