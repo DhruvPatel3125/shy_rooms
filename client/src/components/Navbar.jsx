@@ -42,7 +42,7 @@ const Navbar = () => {
                     <i className="fa fa-user"></i> {users.name}
                   </a>
                   <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a className="dropdown-item" href="/profile">Profile</a></li>
+                    <li><a className="dropdown-item" href="/bookings">Bookings</a></li>
                     <li><a className="dropdown-item" href="#" onClick={logout}>Logout</a></li>
                   </ul>
                 </li>

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import moment from "moment";
-
+import Swal from 'sweetalert2';
 
 //dewre
 const RAZORPAY_KEY_ID = "rzp_test_Dz9hd6AMtKfCZE"; // Use your actual key
@@ -119,12 +119,15 @@ const Bookingscreen = () => {
     try {
       const result = await axios.post('/api/bookings/bookroom', bookingDetails);
       if (result.data.success) {
-        alert('Room booked successfully!');
+        Swal.fire('Congratulation', 'Your room booked successfully', 'success').then(result=>{
+          window.location.href='/bookings'
+        })
+
       } else {
-        alert('Booking failed: ' + (result.data.message || 'Something went wrong'));
+        Swal.fire('Error', 'Booking failed: ' + (result.data.message || 'Something went wrong'), 'error');
       }
     } catch (error) {
-      alert('Booking failed: ' + (error.response?.data?.message || error.message));
+      Swal.fire('Error', 'Booking failed: ' + (error.response?.data?.message || error.message), 'error');
     }
   }
 
