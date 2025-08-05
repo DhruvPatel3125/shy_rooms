@@ -66,7 +66,7 @@ const Bookingscreen = () => {
         key: RAZORPAY_KEY_ID,
         amount: order.amount,
         currency: order.currency,
-        name: "SHAY SHOP",
+        name: "SHAY ROOMS",
         description: `Booking for ${room.name}`,
         order_id: order.id,
         handler: async function (response) {
