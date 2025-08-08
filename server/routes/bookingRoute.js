@@ -16,8 +16,8 @@ router.post("/bookroom", async (req, res) => {
   } = req.body;
 
   try {
-    console.log('Booking request received:', req.body);
-    
+    console.log("Booking request received:", req.body);
+
     // Validate required fields
     if (
       !roomname ||
@@ -28,7 +28,15 @@ router.post("/bookroom", async (req, res) => {
       !totalammount ||
       !totaldays
     ) {
-      console.log('Missing required fields:', { roomname, roomid, userid, fromdate, todate, totalammount, totaldays });
+      console.log("Missing required fields:", {
+        roomname,
+        roomid,
+        userid,
+        fromdate,
+        todate,
+        totalammount,
+        totaldays,
+      });
       return res.status(400).json({
         success: false,
         message: "All booking fields are required",
@@ -39,25 +47,25 @@ router.post("/bookroom", async (req, res) => {
           fromdate: !fromdate,
           todate: !todate,
           totalammount: !totalammount,
-          totaldays: !totaldays
-        }
+          totaldays: !totaldays,
+        },
       });
     }
 
     // Validate and parse dates
-    console.log('Parsing dates:', { fromdate, todate });
+    console.log("Parsing dates:", { fromdate, todate });
     const fromDateObj = moment(fromdate, "DD-MM-YYYY", true);
     const toDateObj = moment(todate, "DD-MM-YYYY", true);
-    
-    console.log('Date validation:', { 
-      fromDateValid: fromDateObj.isValid(), 
+
+    console.log("Date validation:", {
+      fromDateValid: fromDateObj.isValid(),
       toDateValid: toDateObj.isValid(),
-      fromDateParsed: fromDateObj.format('DD-MM-YYYY'),
-      toDateParsed: toDateObj.format('DD-MM-YYYY')
+      fromDateParsed: fromDateObj.format("DD-MM-YYYY"),
+      toDateParsed: toDateObj.format("DD-MM-YYYY"),
     });
 
     if (!fromDateObj.isValid()) {
-      console.log('Invalid from date:', fromdate);
+      console.log("Invalid from date:", fromdate);
       return res.status(400).json({
         success: false,
         message: `Invalid from date format: "${fromdate}". Please use DD-MM-YYYY format.`,
@@ -65,7 +73,7 @@ router.post("/bookroom", async (req, res) => {
     }
 
     if (!toDateObj.isValid()) {
-      console.log('Invalid to date:', todate);
+      console.log("Invalid to date:", todate);
       return res.status(400).json({
         success: false,
         message: `Invalid to date format: "${todate}". Please use DD-MM-YYYY format.`,
@@ -74,7 +82,10 @@ router.post("/bookroom", async (req, res) => {
 
     // Check if from date is before to date
     if (fromDateObj.isSameOrAfter(toDateObj)) {
-      console.log('Date order issue:', { fromDateObj: fromDateObj.format('DD-MM-YYYY'), toDateObj: toDateObj.format('DD-MM-YYYY') });
+      console.log("Date order issue:", {
+        fromDateObj: fromDateObj.format("DD-MM-YYYY"),
+        toDateObj: toDateObj.format("DD-MM-YYYY"),
+      });
       return res.status(400).json({
         success: false,
         message: "Check-in date must be before check-out date.",
@@ -82,15 +93,15 @@ router.post("/bookroom", async (req, res) => {
     }
 
     // Check if from date is not in the past
-    const today = moment().startOf('day');
-    console.log('Date comparison:', { 
-      fromDate: fromDateObj.format('DD-MM-YYYY'), 
-      today: today.format('DD-MM-YYYY'),
-      isInPast: fromDateObj.isBefore(today)
+    const today = moment().startOf("day");
+    console.log("Date comparison:", {
+      fromDate: fromDateObj.format("DD-MM-YYYY"),
+      today: today.format("DD-MM-YYYY"),
+      isInPast: fromDateObj.isBefore(today),
     });
-    
+
     if (fromDateObj.isBefore(today)) {
-      console.log('Past date detected:', fromDateObj.format('DD-MM-YYYY'));
+      console.log("Past date detected:", fromDateObj.format("DD-MM-YYYY"));
       return res.status(400).json({
         success: false,
         message: "Check-in date cannot be in the past.",
@@ -112,8 +123,8 @@ router.post("/bookroom", async (req, res) => {
       const existingToDate = moment(booking.todate, "DD-MM-YYYY");
 
       if (
-        (fromDateObj.isSameOrBefore(existingToDate) && 
-         toDateObj.isSameOrAfter(existingFromDate))
+        fromDateObj.isSameOrBefore(existingToDate) &&
+        toDateObj.isSameOrAfter(existingFromDate)
       ) {
         return res.status(400).json({
           success: false,
@@ -124,16 +135,16 @@ router.post("/bookroom", async (req, res) => {
 
     // Validate calculated total days
     const calculatedDays = toDateObj.diff(fromDateObj, "days");
-    console.log('Days calculation:', { 
-      calculatedDays, 
-      receivedTotalDays: totaldays, 
+    console.log("Days calculation:", {
+      calculatedDays,
+      receivedTotalDays: totaldays,
       match: calculatedDays === totaldays,
-      fromDate: fromDateObj.format('DD-MM-YYYY'),
-      toDate: toDateObj.format('DD-MM-YYYY')
+      fromDate: fromDateObj.format("DD-MM-YYYY"),
+      toDate: toDateObj.format("DD-MM-YYYY"),
     });
-    
+
     if (calculatedDays !== totaldays) {
-      console.log('Days mismatch:', { calculatedDays, totaldays });
+      console.log("Days mismatch:", { calculatedDays, totaldays });
       return res.status(400).json({
         success: false,
         message: `Total days mismatch. Expected ${calculatedDays} days but received ${totaldays} days.`,
@@ -175,15 +186,37 @@ router.post("/bookroom", async (req, res) => {
 
 // Get all bookings for a user
 router.post("/getbookingsbyuserid", async (req, res) => {
-  const { userid } = req.body;
-
   try {
+    console.log("getbookingsbyuserid request received:", {
+      body: req.body,
+      headers: req.headers,
+    });
+
+    // Check if req.body exists and has userid
+    if (!req.body) {
+      return res.status(400).json({
+        success: false,
+        message: "Request body is missing",
+      });
+    }
+
+    const { userid } = req.body;
+
+    if (!userid) {
+      return res.status(400).json({
+        success: false,
+        message: "userid is required",
+        receivedBody: req.body,
+      });
+    }
+
     const bookings = await Booking.find({ userid: userid });
     res.json({
       success: true,
       bookings: bookings,
     });
   } catch (error) {
+    console.error("Error in getbookingsbyuserid:", error);
     return res.status(400).json({
       success: false,
       message: error.message || String(error),
