@@ -2,11 +2,11 @@ import './App.css';
 import Navbar from './components/Navbar';
 import { Routes, Route } from 'react-router-dom';
 import Homescreen from './screen/Homescreen';
-import Room from './components/Room';
 import Bookingscreen from './screen/Bookingscreen';
 import LoginScreen from './screen/LoginScreen';
 import RegisterScreen from './screen/RegisterScreen';
 import ProfileScreen from './screen/ProfileScreen';
+import Adminscreen from './screen/Adminscreen';
 
 function App() {
   return (
@@ -19,6 +19,8 @@ function App() {
         <Route path="/login" element={<LoginScreen/>}/>
         <Route path="/register" element={<RegisterScreen/>}/>
         <Route path="/profile" element={<ProfileScreen/>}/>
+        <Route path="/admin" element={<Adminscreen/>}/>
+
       </Routes>
     </>
   );
