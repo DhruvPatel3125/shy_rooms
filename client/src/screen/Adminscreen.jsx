@@ -34,7 +34,7 @@ useEffect(() => {
           {
             key: "3",
             label: "Add Room",
-            children: <h1>Add Rooms</h1>,
+            children: <Addroom/>,
           },
           {
             key: "4",
@@ -209,6 +209,56 @@ export function Users(){
             ))}
           </tbody>  
         </table>
+      </div>
+    </div>
+  )
+}
+
+
+export function Addroom() {
+
+const [name, setName] = useState("");
+const [rentperday, setRentPerDay] = useState();
+const [maxcount, setMaxCount] = useState();
+const [description, setDescription] = useState();
+const [phonenumber,setPhoneNumber] = useState();
+const [type, setType] = useState("");
+const [imageurl1, setImageUrl1] = useState([]);
+const [imageurl2, setImageUrl2] = useState([]);
+const [imageurl3, setImageUrl3] = useState([]);
+const [loading, setLoading] = useState(false);
+const [error, setError] = useState(null);
+
+function addRoom(){
+  const newroom={
+  name,
+  rentperday,
+  maxcount,
+  description,
+  phonenumber,
+  type,
+  imageurls:[imageurl1,imageurl2,imageurl3]
+}
+console.log(newroom)
+}
+  return (
+    <div className="row">
+      <div className="col-md-5">
+        <input type="text" className="form-control" placeholder="Room name"  value={name} onChange={(e)=>{setName(e.target.value)}}/>
+        <input type="text" className="form-control" placeholder="Rent Per day" value={rentperday} onChange={(e)=>{setRentPerDay(e.target.value)}}/>
+        <input type="text" className="form-control" placeholder="Max Count" value={maxcount} onChange={(e)=>{setMaxCount(e.target.value)}} />
+        <input type="text" className="form-control" placeholder="Description" value={description} onChange={(e)=>{setDescription(e.target.value)}} />
+        <input type="text" className="form-control" placeholder="Phone number" value={phonenumber} onChange={(e)=>{setPhoneNumber(e.target.value)}}/>
+      </div>
+      <div className="col-md-5">
+        <input type="text" className="form-control" placeholder="Type" value={type} onChange={(e)=>{setType(e.target.value)}} />
+        <input type="text" className="form-control" placeholder="Image URL1" value={imageurl1} onChange={(e)=>{setImageUrl1(e.target.value)}} />
+        <input type="text" className="form-control" placeholder="Image URL2" value={imageurl2} onChange={(e)=>{setImageUrl2(e.target.value)}} />
+        <input type="text" className="form-control" placeholder="Image URL3" value={imageurl3} onChange={(e)=>{setImageUrl3(e.target.value)}} />
+
+        <div className="d-flex justify-content-end align-items-center">
+          <button className="btn btn-primary mt-2" type="submit" onClick={addRoom}>Add Room</button>
+        </div>
       </div>
     </div>
   )
