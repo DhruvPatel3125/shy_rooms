@@ -7,21 +7,33 @@ import Swal from "sweetalert2";
 import axios from "axios";
 
 function ProfileScreen() {
-  const user = JSON.parse(localStorage.getItem("currentUser"));
-  if (!user) {
-    window.location.href = "/login";
-  }
+  const stored = localStorage.getItem("currentUser");
+  const user = stored ? JSON.parse(stored) : null;
+
+  useEffect(() => {
+    if (!user) {
+      window.location.href = "/login";
+    }
+  }, [user]);
+  if (!user) return null;
   return (
     <>
-      <div>
+      <div className="container profile-page mt-5">
+        <h2 className="text-center mb-4">My Profile</h2>
         <Tabs defaultActiveKey="1">
           <TabPane tab="Profile" key="1">
-            <h1>Name:{user.name}</h1>
-            <h1>Email:{user.email}</h1>
-            <h1>isAdmin:{user.isAdmin ? "yes" : "no"}</h1>
+            <div className="card shadow-sm border-0 p-3 ">
+              <h4 className="mb-2">{user.name}</h4>
+              <div className="text-muted">{user.email}</div>
+              <span style={{ fontSize: "1.5rem" }} className={`badge ${user.isAdmin ? 'bg-success' : 'bg-secondary'} mt-3`}>
+                {user.isAdmin ? 'Admin' : 'User'}
+              </span>
+            </div>
           </TabPane>
           <TabPane tab="Bookings" key="2">
-            <MyBookings />
+            <div className="card shadow-sm border-0 p-3">
+              <MyBookings />
+            </div>
           </TabPane>
         </Tabs>
       </div>
@@ -31,7 +43,8 @@ function ProfileScreen() {
 export default ProfileScreen;
 
 export function MyBookings() {
-  const user = JSON.parse(localStorage.getItem("currentUser"));
+  const stored = localStorage.getItem("currentUser");
+  const user = stored ? JSON.parse(stored) : null;
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -68,6 +81,8 @@ export function MyBookings() {
 
     if (user && user._id) {
       fetchBookings();
+    } else {
+      setError('You must be logged in to view bookings.');
     }
   }, []);
 
@@ -128,7 +143,6 @@ export function MyBookings() {
 
   return (
     <div>
-      <h2>My Bookings</h2>
       <div style={{ overflowX: "auto" }}>
         <table
           style={{

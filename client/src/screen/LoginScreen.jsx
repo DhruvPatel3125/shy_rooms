@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import { Link } from "react-router-dom";
 function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,9 +47,13 @@ function LoginScreen() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button className="btn btn-primary mt-3" onClick={login}>
+            <button className="btn btn-primary mt-3 w-100" onClick={login}>
               Login
             </button>
+            <div className="text-center mt-3">
+              <small className="text-muted">Don’t have an account? </small>
+              <Link to="/register">Register</Link>
+            </div>
           </div>
         </div>
       </div>

@@ -8,8 +8,15 @@ import Swal from 'sweetalert2';
 function Adminscreen() {
 
 useEffect(() => {
-  if(JSON.parse(localStorage.getItem('currentUser')).isAdmin!==true){
-    window.location.href='/home'
+  try {
+    const stored = localStorage.getItem('currentUser');
+    const currentUser = stored ? JSON.parse(stored) : null;
+    if (!currentUser || currentUser.isAdmin !== true) {
+      window.location.href = '/login';
+    }
+  } catch (e) {
+    // If parsing fails or anything unexpected happens, redirect to login
+    window.location.href = '/login';
   }
 }, [])
 
