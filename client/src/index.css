@@ -73,3 +73,74 @@ h2{
   margin-top: 20px;
 
 }
+
+/* ==========================
+   Responsive styles
+   ========================== */
+/* Extra small devices (portrait phones, <576px) */
+@media (max-width: 575.98px) {
+  /* Typography */
+  h1 { font-size: 18px !important; }
+  h2 { font-size: 22px !important; padding-top: 80px; }
+
+  /* Landing */
+  .landing { height: auto; min-height: 100vh; padding-top: 80px; }
+  .landing h2 { font-size: 42px !important; }
+  .landing h1 { font-size: 16px !important; }
+  .landingbtn { width: 100%; }
+  .landing .col-md-9 { border-right: none !important; }
+
+  /* Images */
+  .smalling { height: 160px; }
+  .modal-carousel-img { height: 220px; }
+
+  /* Cards/boxes */
+  .bs { padding: 14px; margin-top: 12px; }
+
+  /* Forms */
+  input, select, .ant-picker { height: 44px !important; padding: 10px; margin: 8px 0; }
+
+  /* Navbar */
+  .navbar .navbar-brand { font-size: 1.1rem; }
+  .navbar-nav { margin-left: 0 !important; }
+  .nav-link { padding: 0.4rem 0.6rem; }
+
+  /* Tables */
+  .table { font-size: 0.85rem; display: block; overflow-x: auto; white-space: nowrap; }
+}
+
+/* Small devices (landscape phones, ≥576px) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  h1 { font-size: 19px !important; }
+  h2 { font-size: 26px !important; padding-top: 96px; }
+
+  .landing { height: auto; min-height: 100vh; padding-top: 96px; }
+  .landing h2 { font-size: 56px !important; }
+  .landing h1 { font-size: 18px !important; }
+
+  .smalling { height: 180px; }
+  .modal-carousel-img { height: 260px; }
+
+  .bs { padding: 16px; }
+}
+
+/* Medium devices (tablets, ≥768px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  h1 { font-size: 20px !important; }
+  h2 { font-size: 28px !important; padding-top: 110px; }
+
+  .landing { height: auto; min-height: 100vh; padding-top: 110px; }
+  .landing h2 { font-size: 84px !important; }
+  .landing h1 { font-size: 22px !important; }
+
+  .smalling { height: 200px; }
+  .modal-carousel-img { height: 300px; }
+
+  .bs { padding: 20px; }
+}
+
+/* Large devices (desktops, ≥992px) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .landing h2 { font-size: 96px !important; }
+  .landing h1 { font-size: 24px !important; }
+}
