@@ -36,18 +36,43 @@ const Homescreen = () => {
     fetchRooms();
   }, []);
 
-  function filterByDate(dates) {
+  async function filterByDate(dates) {
     if (!dates || dates.length === 0) {
-      setRooms(allRooms);
-      setFromdate(null);
-      setTodate(null);
+      try {
+        setLoading(true);
+        setFromdate(null);
+        setTodate(null);
+        const { data } = await axios.get("/api/rooms/getallrooms");
+        setRooms(data.rooms);
+        setAllRooms(data.rooms);
+      } catch (err) {
+        setError(true);
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
       return;
     }
 
-    setFromdate(dates[0].format("DD-MM-YYYY"));
-    setTodate(dates[1].format("DD-MM-YYYY"));
+    const from = dates[0].format("DD-MM-YYYY");
+    const to = dates[1].format("DD-MM-YYYY");
+    setFromdate(from);
+    setTodate(to);
 
-    // Date filtering can be added here if needed
+    try {
+      setLoading(true);
+      const { data } = await axios.post("/api/rooms/getallrooms", { fromdate: from, todate: to });
+      setRooms(data.rooms);
+      setAllRooms(data.rooms);
+      if (searchkey.trim() !== "" || type !== "all") {
+        applyFilters(searchkey, type);
+      }
+    } catch (err) {
+      setError(true);
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   }
 
   // Apply both search + type filters together
