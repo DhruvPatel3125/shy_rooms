@@ -120,7 +120,7 @@ const Bookingscreen = () => {
       const result = await axios.post('/api/bookings/bookroom', bookingDetails);
       if (result.data.success) {
         Swal.fire('Congratulation', 'Your room booked successfully', 'success').then(result=>{
-          window.location.href='/bookings'
+          window.location.href='/profile'
         })
 
       } else {

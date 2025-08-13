@@ -3,6 +3,7 @@ import { Tabs } from "antd";
 import axios from "axios";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import Swal from 'sweetalert2';
 
 function Adminscreen() {
 
@@ -218,31 +219,68 @@ export function Users(){
 export function Addroom() {
 
 const [name, setName] = useState("");
-const [rentperday, setRentPerDay] = useState();
-const [maxcount, setMaxCount] = useState();
-const [description, setDescription] = useState();
-const [phonenumber,setPhoneNumber] = useState();
+const [rentperday, setRentPerDay] = useState("");
+const [maxcount, setMaxCount] = useState("");
+const [description, setDescription] = useState("");
+const [phonenumber,setPhoneNumber] = useState("");
 const [type, setType] = useState("");
-const [imageurl1, setImageUrl1] = useState([]);
-const [imageurl2, setImageUrl2] = useState([]);
-const [imageurl3, setImageUrl3] = useState([]);
+const [imageurl1, setImageUrl1] = useState("");
+const [imageurl2, setImageUrl2] = useState("");
+const [imageurl3, setImageUrl3] = useState("");
 const [loading, setLoading] = useState(false);
 const [error, setError] = useState(null);
 
-function addRoom(){
-  const newroom={
-  name,
-  rentperday,
-  maxcount,
-  description,
-  phonenumber,
-  type,
-  imageurls:[imageurl1,imageurl2,imageurl3]
-}
-console.log(newroom)
+async function addRoom(){
+  try {
+    setLoading(true);
+    setError(null);
+
+    // Build request payload with proper types and trimming
+    const images = [imageurl1, imageurl2, imageurl3].filter(url => url && url.trim() !== "");
+    const newroom = {
+      name: name.trim(),
+      rentperday: Number(rentperday),
+      maxcount: Number(maxcount),
+      description: description.trim(),
+      phonenumber: Number(phonenumber),
+      type: type.trim(),
+      imageurls: images
+    };
+    setLoading(true);
+    const { data } = await axios.post('/api/rooms/addroom', newroom);
+    console.log(data);
+    setLoading(false);
+    Swal.fire({
+      icon:'success',
+      title:"New room added successfully!"
+    }).then(data=>{
+      window.location.href="/home"
+    })
+
+    // Clear form on success
+    setName("");
+    setRentPerDay("");
+    setMaxCount("");
+    setDescription("");
+    setPhoneNumber("");
+    setType("");
+    setImageUrl1("");
+    setImageUrl2("");
+    setImageUrl3("");
+  } catch (err) {
+    console.log(err);
+    setError(err);
+    Swal.fire({
+      icon:'error',
+      title:"Something went wrong!"
+    })
+  } finally {
+    setLoading(false);
+  }
 }
   return (
     <div className="row">
+      {loading && <Loader />}
       <div className="col-md-5">
         <input type="text" className="form-control" placeholder="Room name"  value={name} onChange={(e)=>{setName(e.target.value)}}/>
         <input type="text" className="form-control" placeholder="Rent Per day" value={rentperday} onChange={(e)=>{setRentPerDay(e.target.value)}}/>
