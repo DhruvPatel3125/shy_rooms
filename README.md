@@ -1,93 +1,68 @@
-# SHAY_SHOP
+# 🏨 SHAY_SHOP
 
-This is a full-stack MERN (MongoDB, Express.js, React, Node.js) application for a hotel booking system.
+**SHAY_SHOP** is a full-stack **MERN (MongoDB, Express.js, React, Node.js)** application designed for a seamless **hotel room booking system**.  
+It enables users to browse available rooms, make bookings, handle payments, and allows admins to manage rooms, users, and reservations.
 
-## Project Structure
+---
 
-The project is divided into two main parts: `client` and `server`.
+## 📌 Table of Contents
+- [Project Overview](#-project-overview)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Installation & Setup](#-installation--setup)
+  - [Client Setup](#1-client-setup-react)
+  - [Server Setup](#2-server-setup-nodejs--express)
+- [API Endpoints](#-api-endpoints)
+- [Database](#-database)
+- [Contributing](#-contributing)
+- [License](#-license)
 
-### Client
+---
 
-Located in the `client/` directory, this is a React application built with Create React App. It provides the user interface for booking rooms, viewing available rooms, user authentication, and administrative functionalities.
+## 🚀 Project Overview
+SHAY_SHOP is a hotel booking application where:
+- Guests can explore rooms, check availability, and book in real-time.
+- Users can register/login and view their bookings.
+- Admins can manage users, rooms, and bookings.
+- Secure authentication and payment processing are included.
 
-**Key Technologies:**
-- React
-- React Router
-- Axios (for API calls)
-- Ant Design (for UI components - assuming based on common MERN stack practices, please adjust if different)
+---
 
-#### Setup and Run (Client)
+## ✨ Features
+### User Features:
+- 🔑 User Registration & Login (JWT authentication).
+- 🛏️ Browse all available rooms with details.
+- 📅 Book rooms with date selection.
+- 💳 Payment integration for booking confirmation.
+- 👤 User profile with past and upcoming bookings.
 
-To set up and run the client application:
+### Admin Features:
+- 👥 Manage users (view, delete, promote).
+- 🏨 Add, update, or delete rooms.
+- 📊 View and manage all bookings.
 
-1. Navigate to the `client` directory:
-   ```bash
-   cd client
-   ```
-2. Install the dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the development server:
-   ```bash
-   npm start
-   ```
-   The client application will typically run on `http://localhost:3000`.
+---
 
-### Server
+## 🛠️ Tech Stack
+- **Frontend (Client):**
+  - React (Create React App)
+  - React Router
+  - Axios (API calls)
+  - Ant Design (UI Components)
+  
+- **Backend (Server):**
+  - Node.js
+  - Express.js
+  - Mongoose (MongoDB ORM)
+  - PostgreSQL (optional alternative via `databasepg.js`)
+  - JWT Authentication
+  - Nodemon (development)
 
-Located in the `server/` directory, this is a Node.js and Express.js backend application that handles API requests, database interactions, and business logic. It includes routes for user management, room management, booking management, and payment processing.
+- **Database:**
+  - MongoDB (default)
+  - PostgreSQL (optional)
 
-**Key Technologies:**
-- Node.js
-- Express.js
-- Mongoose (for MongoDB ORM - assuming based on MERN stack, please adjust if PostgreSQL is used for `databasepg.js`)
-- Nodemon (for development, auto-restarts server)
+---
 
-#### Setup and Run (Server)
-
-To set up and run the server application:
-
-1. Navigate to the `server` directory:
-   ```bash
-   cd server
-   ```
-2. Install the dependencies:
-   ```bash
-   npm install
-   ```
-3. Create a `.env` file in the `server` directory and add your environment variables (e.g., MongoDB URI, JWT Secret). Example:
-   ```
-   MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret
-   ```
-4. Start the server:
-   ```bash
-   npm start
-   ```
-   The server will typically run on `http://localhost:5000`.
-
-## API Endpoints (Conceptual)
-
-- **User Authentication:** `/api/users/register`, `/api/users/login`
-- **Room Management:** `/api/rooms/getallrooms`, `/api/rooms/getroombyid/:roomid`
-- **Booking Management:** `/api/bookings/bookroom`, `/api/bookings/getbookingsbyuserid/:userid`
-- **Admin Functionality:** `/api/admin/users`, `/api/admin/rooms`, `/api/admin/bookings`
-- **Payment Processing:** `/api/payment/makepayment`
-
-## Database
-
-The project uses a database for storing user, room, and booking information. Based on the file structure, it appears there are options for both MongoDB (common for MERN) and PostgreSQL.
-
-- `db.js`: Likely for MongoDB connection.
-- `databasepg.js`: Likely for PostgreSQL connection.
-
-**Please ensure your database is running and accessible before starting the server.**
-
-## Contributing
-
-(Add details on how others can contribute to your project)
-
-## License
-
-(Add your project's license information)
+## 📂 Project Structure
