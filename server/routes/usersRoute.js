@@ -40,4 +40,23 @@ router.get("/getallusers",async(req,res)=>{
        return res.status(400).json({error})
     }
 })
+// Update user
+router.put('/updateuser/:id', async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.send(user);
+  } catch (error) {
+    return res.status(400).json({ error });
+  }
+});
+
+// Delete user
+router.delete('/deleteuser/:id', async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.send('User deleted successfully');
+  } catch (error) {
+    return res.status(400).json({ error });
+  }
+});
 module.exports = router

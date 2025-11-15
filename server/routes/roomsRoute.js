@@ -97,4 +97,24 @@ router.post('/addroom',async(req,res)=>{
   }
 })
 
+// Update room
+router.put('/updateroom/:id', async (req, res) => {
+  try {
+    const room = await Room.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.send(room);
+  } catch (error) {
+    return res.status(400).json({ error });
+  }
+});
+
+// Delete room
+router.delete('/deleteroom/:id', async (req, res) => {
+  try {
+    await Room.findByIdAndDelete(req.params.id);
+    res.send('Room deleted successfully');
+  } catch (error) {
+    return res.status(400).json({ error });
+  }
+});
+
 module.exports = router;

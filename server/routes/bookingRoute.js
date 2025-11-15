@@ -164,6 +164,7 @@ router.post("/bookroom", async (req, res) => {
     await newBooking.save();
 
     // Update room's current bookings
+
     room.currentbookings.push({
       bookingid: newBooking._id,
       fromdate: fromDateObj.format("DD-MM-YYYY"),
@@ -287,14 +288,23 @@ router.get("/getallbookings", async (req, res) => {
     });
   }
 });
-
-router.get("/getallbookings",async(req,res)=>{
+// Delete booking
+router.delete('/deletebooking/:id', async (req, res) => {
   try {
-    const bookings = await Booking.find()
-    res.send(bookings)
+    await Booking.findByIdAndDelete(req.params.id);
+    res.send('Booking deleted successfully');
   } catch (error) {
-    return res.status(400).send(error.message||String(error))
+    return res.status(400).json({ error });
   }
-})
+});
+
+router.get("/getallbookings", async (req, res) => {
+  try {
+    const bookings = await Booking.find();
+    res.send(bookings);
+  } catch (error) {
+    return res.status(400).send(error.message || String(error));
+  }
+});
 
 module.exports = router;
